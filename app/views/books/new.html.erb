@@ -1,3 +1,5 @@
+
+
 <h1>New book</h1>
 <%= form_with model: @book, url: '/books',method: :post do |f| %>
   <h4>Title</h4>
@@ -7,4 +9,13 @@
   <%= f.text_area :body %>
 
   <%= f.submit 'Create Book' %>
+<% end %>
+
+<% if @book.errors.any? %>
+ <%= @book.errors.count %>error
+ <ul>
+   <% @book.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+   <% end %>
+ </ul>
 <% end %>

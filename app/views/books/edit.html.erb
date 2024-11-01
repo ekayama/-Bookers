@@ -1,16 +1,33 @@
-<h1>Editing Book</h1>
+<h1 class="edit-midasi">Editing Book</h1>
+
+<% if @book.errors.any? %>
+ <%= @book.errors.count %>error
+ <ul>
+   <% @book.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+   <% end %>
+ </ul>
+<% end %>
 
 <%= form_with model: @book do |f| %>
+  <div class="edit-title">
+    <strong>Title</strong><br>
+    <%= f.text_field :title %>
+  </div>
 
-  <h4>Title</h4>
-  <%= f.text_field :title %>
-
-  <h4>Body</h4>
-  <%= f.text_area :body %>
+  <div class="edit-body">
+    <strong>Body</strong><br>
+    <%= f.text_area :body %>
+  </div>
   
-  <%= f.submit 'Create Book' %>
+  <div class="edit-botan">
+    <%= f.submit 'Updatw Book' %>
+  </div>
   
-<p><%= link_to "Show", book_path(params[:id]) %></p>
-<span><%= link_to "Back", '/books' %></span>
+  <div class="edit-botan2">
+    <span><%= link_to "Show", book_path(params[:id]) %></span>
+    <span><%= "|" %></span>
+    <span><%= link_to "Back", '/books' %></span>
+  </div>
   
 <% end %>
