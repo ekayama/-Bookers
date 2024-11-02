@@ -17,7 +17,7 @@
         <td class="index-body"><%= book.body %></td>
         <td class="index-show"><%= link_to "Show", book_path(book.id) %></td>
         <td class="index-edit"><%= link_to "Edit", edit_book_path(book.id) %></td>
-        <td class="index-destroy"><%= link_to "Destroy", books_path(book.id), method: :delete, "data-confirm" => "Are you sure?" %></td>
+        <td class="index-destroy"><%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "Are you sure?" %></td>
      </tr>
      </div>
   </tbody>
@@ -25,17 +25,28 @@
 </table>
 </div>
 
+<!--スペルミスでテストチェックエラーがでたり、ルーティングエラーがでるから気をつける-->
+<!--違うページの表示を全て一つのページに表示ときは、indexにコピペしていけばOK-->
 
 <div class="index-New_book">
 <h1>New book</h1>
-
 <%= form_with model: @book, url: '/books',method: :post do |f| %>
-  <h4>Title</strong><h4>
+  <h4>Title</h4>
   <%= f.text_field :title %>
-  
+
   <h4>Body</h4>
-  <%= f.text_area :body %><br>
-  
+  <%= f.text_area :body %>
+ <div>
   <%= f.submit 'Create Book' %>
-</div>
+ </div>
 <% end %>
+
+<% if @book.errors.any? %>
+ <%= @book.errors.count %>error
+ <ul>
+   <% @book.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+   <% end %>
+ </ul>
+<% end %>
+</div>
